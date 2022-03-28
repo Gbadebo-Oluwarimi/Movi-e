@@ -1,11 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
+import { process } from 'express/lib/router';
 import searchIcon from "./search.svg";
 import Moviecard from './components/Moviecard';
 
 const App = () => {
-  const API_URL = 'http://www.omdbapi.com?apikey=dc1b24c1'
+  
+  const API_URL = `http://www.omdbapi.com?apikey=${import.meta.env.VITE_API_KEY}`;
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -30,7 +32,7 @@ const App = () => {
         movies?.length > 0 ? 
         (
           <div className="container">
-            {movies.map((movie) => <Moviecard movie={movie}/>)}
+            {movies.map((movie) => <Moviecard key={movie.imdbID} movie={movie}/>)}
             </div>
         ):(
           <div className='empty'>
